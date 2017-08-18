@@ -1,0 +1,36 @@
+---
+# tasks file for sshd
+- name: "Copy sshd_config file"
+  template:
+    src: "sshd_config.j2"
+    dest: "/etc/ssh/sshd_config"
+    owner: "root"
+    group: "root"
+    mode: 0600
+  notify:
+  - "restart sshd"
+
+- block:
+  - name: "Enable non-default SSH port in firewall"
+    firewalld:
+      port: "{{sshd_port}}/tcp"
+      state: "enabled"
+      permanent: True
+    notify:
+    - "restart firewalld"
+  
+  - name: "Disable default SSH port in firewall"
+    firewalld:
+      service: "ssh"
+      state: "disabled"
+      permanent: True
+    notify: "restart firewalld"
+  
+  - name: "Enable non-default in SeLinux policy"
+    seport:
+      ports: "{{sshd_port}}"
+      proto: "tcp"
+      setype: "ssh_port_t"
+      state: "present"
+  when:
+  - sshd_port != 22

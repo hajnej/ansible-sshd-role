@@ -1,0 +1,41 @@
+---
+# defaults file for sshd
+# TCP port to listen to, default 22
+# Due dependency on ansible-ssh-check-role this variable is no more needed
+#sshd_port: "{{ansible_port|default(22)}}"
+# SSHD log level, default INFO
+sshd_loglevel: "INFO"
+# Permit root login, default yes
+sshd_permitrootlogin: "without-password"
+# Enable strict modes eg. keys permissions, default yes
+# This parameter was hardwired
+#sshd_strictmodes: "yes"
+# Max auth tries per connection, default 2
+sshd_maxauthtries: 2
+#Number of sessions per connection, default 10
+sshd_maxsessions: 10
+# Ignore .rhosts files, default yes
+# This parameter was hardwired
+#sshd_ignorehosts: "yes"
+# Enable password authenticatin globally, default no
+# This parameter was hardwired
+#sshd_passwordauthentication: "no"
+# Allow agent forwarding, default no
+# This parameter was hardwired
+#sshd_allowagentforwarding: "no"
+# Allow port forwarding, default no
+# This parameter was hardwired
+#sshd_allowtcpforwarding: "no"
+# Allow gateway ports in case of remote port forwarding, default no
+# This parameter was hardwired
+#sshd_gatewayports: "no"
+# Enable X11Forwarding, default no
+# This parameter was hardwired
+#sshd_x11forwarding: "no"
+# Allow HostBasedAuthentication, default no
+# This parameter was hardwired
+#sshd_hostbasedauthentication: "no"
+# ClientAliveInterval, default 300
+sshd_clientaliveinterval: 300
+# ClientAliveCountMax, default 0
+sshd_clientalivecountmax: 0
