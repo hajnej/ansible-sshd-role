@@ -44,6 +44,7 @@ Dependencies
 This role depends on below ansible roles:
 
     ansible-ssh-check-role
+    ansible-firewalld-role
     ansible-selinux-role
 
 Example Playbook
