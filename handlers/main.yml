@@ -19,8 +19,13 @@
   listen: "restart sshd"
 
 - name: "Check we can connect to SSH"
-  wait_for_connection:
-    delay: 30
-    timeout: 180
-  listen: "restart sshd"
+  become: no
+  local_action:
+    module: "wait_for"
+    host: "{{ansible_host}}"
+    port: "{{ansible_port}}"
+    state: "started"
+    connect_timeout: 1
+    delay: 5
+    timeout: 30
 
