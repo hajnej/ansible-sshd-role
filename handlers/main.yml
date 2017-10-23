@@ -1,10 +1,26 @@
 ---
 # handlers file for sshd
-- name: "restart sshd"
-  service:
-    name: "sshd"
-    state: "restarted"
-- name: "restart firewalld"
+#
+- name: "Restart firewalld"
   service:
     name: "firewalld"
     state: "restarted"
+  listen: "restart firewalld"
+
+- name: "Restart sshd"
+  service:
+    name: "sshd"
+    state: "restarted"
+  listen: "restart sshd"
+
+- name: "Set ansible_port to configured value"
+  set_fact:
+    ansible_port: "{{sshd_port}}"
+  listen: "restart sshd"
+
+- name: "Check we can connect to SSH"
+  wait_for_connection:
+    delay: 30
+    timeout: 180
+  listen: "restart sshd"
+
